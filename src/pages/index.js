@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Header from "../components/header"
 
-// Custom CSS with neo-brutalist styling that can't be done with Tailwind alone
 const customStyles = `
   @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
@@ -29,13 +28,55 @@ const customStyles = `
                 linear-gradient(45deg, #191919 25%, transparent 25%);
     background-size: 40px 40px;
   }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    .hero-content h1 {
+      font-size: 3.5rem !important;
+      line-height: 1.2 !important;
+    }
+    .pattern-heading {
+      font-size: 2.5rem !important;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 4.5rem !important;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .hero-content h1 {
+      font-size: 5.5rem !important;
+    }
+  }
+
+  /* Improved animation for hovering product cards */
+  .product-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .product-card:hover {
+    transform: translateY(-15px) rotate(-1deg);
+  }
+
+  /* Make the background image work better on mobile */
+  .responsive-bg {
+    background-attachment: scroll;
+  }
+  @media (min-width: 1024px) {
+    .responsive-bg {
+      background-attachment: fixed;
+    }
+  }
 `
 
-// Neo-brutalist Button component
+// Enhanced Neo-brutalist Button component
 const NeoButton = ({ children, bgColor = "bg-black", textColor = "text-white", className = "", ...props }) => {
   return (
     <button
-      className={`${bgColor} ${textColor} border-4 border-black font-bold uppercase tracking-wider px-8 py-4 shadow-neo transition-transform duration-300 hover:-translate-y-1 hover:translate-x-1 pirata-font ${className}`}
+      className={`${bgColor} ${textColor} border-4 border-black font-bold uppercase tracking-wider px-4 sm:px-8 py-3 sm:py-4 shadow-neo transition-transform duration-300 hover:-translate-y-1 hover:translate-x-1 pirata-font ${className}`}
       {...props}
     >
       {children}
@@ -43,10 +84,10 @@ const NeoButton = ({ children, bgColor = "bg-black", textColor = "text-white", c
   );
 };
 
-// Product Card component
+// Improved Product Card component with better hover effects
 const ProductCard = ({ title, price, tag = "NEW", bgColor = "bg-pink-300" }) => {
   return (
-    <div className="border-4 border-black shadow-neo bg-white transform -rotate-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-neo-lg">
+    <div className="border-4 border-black shadow-neo bg-white transform -rotate-2 transition-all duration-300 product-card hover:shadow-neo-lg">
       <div className="relative border-b-4 border-black overflow-hidden">
         <div className={`${bgColor} aspect-[4/5] flex items-center justify-center text-4xl font-bold text-white`}>
           <span className="pirata-font">TARRAJUWA</span>
@@ -57,10 +98,10 @@ const ProductCard = ({ title, price, tag = "NEW", bgColor = "bg-pink-300" }) => 
           </div>
         )}
       </div>
-      <div className="p-5">
-        <h3 className="text-2xl mb-1 pirata-font text-black">{title}</h3>
-        <p className="text-xl font-bold text-orange-600 mb-4 ibm-plex-font">{price}</p>
-        <NeoButton className="text-sm py-2 px-4 shadow-sm">
+      <div className="p-4 sm:p-5">
+        <h3 className="text-xl sm:text-2xl mb-1 pirata-font text-black">{title}</h3>
+        <p className="text-lg sm:text-xl font-bold text-orange-600 mb-3 sm:mb-4 ibm-plex-font">{price}</p>
+        <NeoButton className="text-sm py-2 px-3 sm:px-4 shadow-sm w-full sm:w-auto">
           ADD TO CART
         </NeoButton>
       </div>
@@ -135,85 +176,94 @@ const IndexPage = () => {
 
   return (
     <main className="overflow-x-hidden">
-
       <Helmet>
         <title>TARRAJUWA | Neo-Brutalist Clothing</title>
         <meta name="description" content="TARRAJUWA - Bold, functional neo-brutalist clothing designs" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet" />
         <style>{customStyles}</style>
         <style>{`
-              .shadow-neo {
-                box-shadow: 8px 8px 0 #191919;
-              }
-              .shadow-neo-lg {
-                box-shadow: 12px 12px 0 #191919;
-              }
-              .text-shadow {
-                text-shadow: 4px 4px 0 #191919;
-              }
-              .text-shadow-sm {
-                text-shadow: 2px 2px 0 #191919;
-              }
-              .hero-content {
-                position: relative;
-                z-index: 10;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                height: 100%;
-                padding-top: 0;
-              }
-              .text-white-with-shadow {
-                color: white;
-                text-shadow: 4px 4px 0 #000, 8px 8px 0 #32CD32;
-                letter-spacing: 1px;
-              }
-              .background-wrapper {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1;
-              }
-            `}</style>
+                  .shadow-neo {
+                    box-shadow: 8px 8px 0 #191919;
+                  }
+                  .shadow-neo-lg {
+                    box-shadow: 12px 12px 0 #191919;
+                  }
+                  .text-shadow {
+                    text-shadow: 4px 4px 0 #191919;
+                  }
+                  .text-shadow-sm {
+                    text-shadow: 2px 2px 0 #191919;
+                  }
+                  .hero-content {
+                    position: relative;
+                    z-index: 10;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    height: 100%;
+                    padding-top: 0;
+                  }
+                  .text-white-with-shadow {
+                    color: white;
+                    text-shadow: 4px 4px 0 #000, 8px 8px 0 #32CD32;
+                    letter-spacing: 1px;
+                  }
+                  .background-wrapper {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                  }
+                  /* Responsive padding adjustments */
+                  @media (max-width: 640px) {
+                    .responsive-padding {
+                      padding-left: 1rem;
+                      padding-right: 1rem;
+                    }
+                  }
+                `}</style>
       </Helmet>
 
       {/* Navigation */}
       <Header />
 
-      {/* Updated Hero Section with Pattern Background Only and Text */}
-      <section className="pt-20 min-h-screen flex flex-col items-center justify-center relative">
+      {/* Improved Responsive Hero Section */}
+      <section className="pt-16 sm:pt-20 min-h-[85vh] sm:min-h-screen flex flex-col items-center justify-center relative">
         {/* Pattern Background */}
         <div className="background-wrapper">
           <GatsbyImage
             image={backgroundImage}
             alt="Pattern Background"
-            className="w-full h-full"
+            className="w-full h-full responsive-bg"
             style={{ position: "absolute" }}
             objectFit="cover"
             objectPosition="center"
           />
         </div>
 
-        {/* Text Directly on Background - With Corrected Line Breaks */}
-        <div className="text-center px-4 mx-auto max-w-5xl hero-content -mt-20">
+        {/* Text Directly on Background - Centered Higher with improved responsive design */}
+        <div className="text-center px-4 mx-auto max-w-5xl hero-content -mt-10 sm:-mt-20">
           <h1
-            className="text-6xl md:text-8xl lg:text-9xl text-white-with-shadow uppercase mb-16 "
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white-with-shadow uppercase mb-8 sm:mb-16"
             style={{
               fontFamily: "'Special Gothic Expanded One', cursive",
               lineHeight: "1.1",
             }}
           >
-            Bold.<br />Brutal.<br />(Fun)ctional.
+            Bold.<br />
+            Brutal.<br />
+            (Fun)ctional.
           </h1>
 
           {/* Shop Now Button */}
           <div className="inline-block transform -rotate-2">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-12 border-4 border-black uppercase tracking-wider pirata-font shadow-neo"
+              className="bg-green-500 hover:bg-green-600 text-white text-xl sm:text-2xl py-3 sm:py-4 px-8 sm:px-12 border-4 border-black uppercase tracking-wider pirata-font shadow-neo"
               style={{
                 fontFamily: "'Special Gothic Expanded One', cursive",
                 textShadow: "2px 2px 0px #000",
@@ -226,14 +276,14 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* Pattern Collection Section with background2.png instead of solid blue */}
-      <section className="py-24 relative">
+      {/* Improved Responsive Pattern Collection Section */}
+      <section className="py-16 sm:py-24 relative">
         {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <GatsbyImage
             image={background2Image}
             alt="Pattern Background"
-            className="w-full h-full"
+            className="w-full h-full responsive-bg"
             style={{ position: "absolute" }}
             objectFit="cover"
             objectPosition="center"
@@ -242,8 +292,8 @@ const IndexPage = () => {
 
         <div className="zigzag absolute top-0 left-0 right-0 z-10"></div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-5xl md:text-6xl mb-16 text-center text-white uppercase pirata-font" style={{
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 responsive-padding">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl mb-10 sm:mb-16 text-center text-orange-500 uppercase pirata-font pattern-heading" style={{
             fontFamily: "'Special Gothic Expanded One', cursive",
             textShadow: "4px 4px 0px #91DF5D",
             lineHeight: "1.2"
@@ -251,15 +301,13 @@ const IndexPage = () => {
             Pattern Collection
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" style={{
-            fontFamily: "'Special Gothic Expanded One', cursive",
-          }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
             {[
               { title: "UTILITY CARGO PANTS", price: "$129", color: "bg-pink-600" },
               { title: "OVERSIZED JACKET", price: "$189", color: "bg-purple-600" },
               { title: "GRAPHIC PRINT TEE", price: "$79", color: "bg-green-500" }
             ].map((product, index) => (
-              <div key={index}>
+              <div key={index} className="mx-auto w-full max-w-sm sm:max-w-none">
                 <ProductCard
                   title={product.title}
                   price={product.price}
@@ -270,11 +318,11 @@ const IndexPage = () => {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
+          <div className="mt-12 sm:mt-16 text-center">
             <div className="inline-block">
-              <NeoButton className="text-xl text-white" style={{
+              <NeoButton className="text-base sm:text-xl text-orange-500" style={{
                 fontFamily: "'Special Gothic Expanded One', cursive",
-                textShadow: "4px 4px 0px #000000",
+                textShadow: "2px 2px 0px #FFFFFF",
                 lineHeight: "1.2"
               }}>
                 VIEW ALL PRODUCTS
