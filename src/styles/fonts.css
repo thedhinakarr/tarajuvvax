@@ -1,0 +1,8 @@
+/* fonts.css */
+@font-face {
+    font-family: 'Sceageus';
+    src: url('/fonts/Sceageus.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

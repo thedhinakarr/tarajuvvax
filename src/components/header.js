@@ -5,6 +5,12 @@ import { Helmet } from "react-helmet"
 
 const Header = ({ logoImage }) => (
   <header className="relative">
+    <Helmet>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Stalinist+One&display=swap" rel="stylesheet" />
+    </Helmet>
+
     {/* Dark header background */}
     <div className="w-full bg-black px-6 py-10 flex items-center justify-between">
       {/* Mobile menu button */}
@@ -16,28 +22,24 @@ const Header = ({ logoImage }) => (
 
       {/* Desktop navigation - hidden on mobile */}
       <nav className="hidden md:flex md:items-center space-x-6">
-        <Link to="/" className="text-white uppercase font-medium text-sm hover:text-gray-300">
+        <Link to="/" className="text-white uppercase font-medium text-sm hover:text-gray-300" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
           Home
         </Link>
-        <Link to="/shop" className="text-white uppercase font-medium text-sm hover:text-gray-300">
+        <Link to="/shop" className="text-white uppercase font-medium text-sm hover:text-gray-300" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
           Shop
         </Link>
-        <Link to="/about" className="text-white uppercase font-medium text-sm hover:text-gray-300">
+        <Link to="/about" className="text-white uppercase font-medium text-sm hover:text-gray-300" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
           About
         </Link>
-        <Link to="/contact" className="text-white uppercase font-medium text-sm hover:text-gray-300">
+        <Link to="/contact" className="text-white uppercase font-medium text-sm hover:text-gray-300" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
           Contact
         </Link>
       </nav>
 
       {/* Logo in center */}
       <div className="absolute left-1/2 transform -translate-x-1/2">
-        <Link to="/" className="text-white text-4xl font-bold uppercase tracking-wider">
-          <GatsbyImage
-            image={logoImage}
-            alt="Tarrajuwa Hero"
-            className="w-full transition-transform duration-700 hover:scale-105"
-          />
+        <Link to="/" className="text-white text-4xl uppercase tracking-wider" style={{ fontFamily: "'Pirata One', cursive" }}>
+          Tarajuvva
         </Link>
       </div>
 
@@ -66,7 +68,7 @@ const Header = ({ logoImage }) => (
       </div>
     </div>
 
-    {/* Red accent line below header */}
+    {/* White accent line below header */}
     <div className="w-full h-1 bg-white"></div>
   </header>
 )

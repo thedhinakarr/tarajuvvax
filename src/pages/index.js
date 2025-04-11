@@ -19,15 +19,20 @@ const colors = {
 }
 
 // Custom CSS with neo-brutalist styling that can't be done with Tailwind alone
+
 const customStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 
   body {
-    font-family: 'Space Mono', monospace;
+    font-family: 'VT323', monospace;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Archivo Black', sans-serif;
+  h1, h2, h3, h4, h5, h6, .heading-font, .pirata-font {
+    font-family: 'Pirata One', cursive;
   }
 
   /* Zigzag pattern */
@@ -41,11 +46,12 @@ const customStyles = `
   }
 `
 
+
 // Neo-brutalist Button component
 const NeoButton = ({ children, bgColor = "bg-black", textColor = "text-white", className = "", ...props }) => {
   return (
     <button
-      className={`${bgColor} ${textColor} border-4 border-black font-bold uppercase tracking-wider px-8 py-4 shadow-neo transition-transform duration-300 hover:-translate-y-1 hover:translate-x-1 ${className}`}
+      className={`${bgColor} ${textColor} border-4 border-black font-bold uppercase tracking-wider px-8 py-4 shadow-neo transition-transform duration-300 hover:-translate-y-1 hover:translate-x-1 pirata-font ${className}`}
       {...props}
     >
       {children}
@@ -59,17 +65,17 @@ const ProductCard = ({ image, title, price, tag = "NEW", bgColor = "bg-pink-300"
     <div className="border-4 border-black shadow-neo bg-white transform -rotate-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-neo-lg">
       <div className="relative border-b-4 border-black overflow-hidden">
         <div className={`${bgColor} aspect-[4/5] flex items-center justify-center text-4xl font-bold text-white`}>
-          TARRAJUWA
+          <span className="pirata-font">TARRAJUWA</span>
         </div>
-        tag && (
-        <div className="absolute top-3 right-3 bg-blue-600 text-white py-1 px-3 font-bold border-2 border-black transform rotate-3 z-10">
-          {tag}
-        </div>
-        )
+        {tag && (
+          <div className="absolute top-3 right-3 bg-blue-600 text-white py-1 px-3 font-bold border-2 border-black transform rotate-3 z-10 pirata-font">
+            {tag}
+          </div>
+        )}
       </div>
       <div className="p-5">
-        <h3 className="text-2xl font-bold text-black mb-1">{title}</h3>
-        <p className="text-xl font-bold text-orange-600 mb-4">{price}</p>
+        <h3 className="text-2xl mb-1 pirata-font text-black">{title}</h3>
+        <p className="text-xl font-bold text-orange-600 mb-4 ibm-plex-font">{price}</p>
         <NeoButton className="text-sm py-2 px-4 shadow-sm">
           ADD TO CART
         </NeoButton>
@@ -141,7 +147,6 @@ const IndexPage = () => {
           )
         }
       }
-
       ourstory: file(relativePath: { eq: "ourstory.png" }) {
         childImageSharp {
           gatsbyImageData(
@@ -154,7 +159,6 @@ const IndexPage = () => {
       }
     }
   `)
-
 
   const logoImage = getImage(data.logoImage) || null
   const patternImage = getImage(data.patternImage) || null
@@ -169,6 +173,8 @@ const IndexPage = () => {
       <Helmet>
         <title>TARRAJUWA | Neo-Brutalist Clothing</title>
         <meta name="description" content="TARRAJUWA - Bold, functional neo-brutalist clothing designs" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <style>{customStyles}</style>
         <style>{`
           .shadow-neo {
@@ -188,44 +194,35 @@ const IndexPage = () => {
 
       {/* Navigation */}
       <Header logoImage={logoImage} />
-      {/* Hero Section with Centered Image */}
-      {/* Hero Section with Centered Text on Image */}
-      <section className="min-h-screen relative bg-pink-700">
 
-        {/* Hero Image Container */}
-        <div className="container mx-auto px-4 py-8-28 pb-16 flex items-center justify-center h-screen">
-          <div className="relative max-w-5xl w-full mx-auto">
-            {/* Hero Image with Border */}
-            <div className="border-4 border-black shadow-neo-lg bg-white overflow-hidden relative">
-              <div className="relative">
-                <GatsbyImage
-                  image={patternbigImage}
-                  alt="Tarrajuwa Hero"
-                  className="w-full transition-transform duration-700 hover:scale-105"
-                />
+      {/* Hero Section with Pirata One Font */}
+      <section className="pt-20 min-h-screen flex items-center justify-center bg-pink-600">
+        <div className="text-center px-4 mx-auto max-w-4xl z-10 relative py-16">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-blue-600 border-4 border-black -z-10"></div>
+          <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-400 border-4 border-black transform rotate-12 -z-10"></div>
 
-                {/* Centered Text Overlay */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                  <div className="bg-black bg-opacity-10 p-8 rounded-lg backdrop-blur-sm">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-orange-500 uppercase tracking-wider"
-                      style={{
-                        fontFamily: "'Archivo Black', sans-serif",
-                        textShadow: "4px 4px 0px #91DF5D",
-                        letterSpacing: "0.05em",
-                        lineHeight: "1.1"
-                      }}>
-                      Bold. Brutal. (Fun)ctional.
-                    </h1>
-                    <div className="mt-8">
-                      <NeoButton bgColor="bg-green-600" className="text-xl py-4 px-8">
-                        SHOP NOW
-                      </NeoButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Neo-brutalist Text Box */}
+          <div className="bg-white border-4 border-black transform rotate-1 p-8 mb-10 mx-auto" style={{ boxShadow: '8px 8px 0 #000' }}>
+            <h1
+              className="text-6xl md:text-7xl pirata-font text-black uppercase"
+              style={{
+                textShadow: "4px 4px 0px #91DF5D",
+                lineHeight: "1.2"
+              }}
+            >
+              Bold. Brutal. (Fun)ctional.
+            </h1>
+          </div>
 
+          {/* Shop Now Button */}
+          <div className="inline-block transform -rotate-2">
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-10 border-4 border-black uppercase tracking-wider pirata-font"
+              style={{ boxShadow: "6px 6px 0 #000" }}
+            >
+              Shop Now
+            </button>
           </div>
         </div>
       </section>
@@ -235,99 +232,72 @@ const IndexPage = () => {
         <div className="zigzag absolute top-0 left-0 right-0"></div>
 
         <div className="container mx-auto px-6">
-          <motion.h2
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl font-black mb-16 text-center text-white uppercase text-shadow"
-          >
+          <h2 className="text-5xl md:text-6xl mb-16 text-center text-white uppercase pirata-font" style={{ textShadow: "4px 4px 0 #191919" }}>
             Pattern Collection
-          </motion.h2>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {[
-              { image: pattern1, title: "UTILITY CARGO PANTS", price: "$129", color: "bg-pink-900" },
-              { image: pattern2, title: "OVERSIZED JACKET", price: "$189", color: "bg-purple-900" },
-              { image: pattern3, title: "GRAPHIC PRINT TEE", price: "$79", color: "bg-green-900" }
+              { title: "UTILITY CARGO PANTS", price: "$129", color: "bg-pink-600" },
+              { title: "OVERSIZED JACKET", price: "$189", color: "bg-purple-600" },
+              { title: "GRAPHIC PRINT TEE", price: "$79", color: "bg-green-500" }
             ].map((product, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-              >
+              <div key={index}>
                 <ProductCard
-                  image={product.image}
                   title={product.title}
                   price={product.price}
                   bgColor={product.color}
+                  tag="NEW"
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
 
           <div className="mt-16 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="inline-block"
-            >
+            <div className="inline-block">
               <NeoButton className="text-xl">
                 VIEW ALL PRODUCTS
               </NeoButton>
-            </motion.div>
+            </div>
           </div>
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-1/10 right-1/20 w-24 h-24 bg-orange-600 border-4 border-black transform rotate-12"></div>
-        <div className="absolute top-1/5 left-1/20 w-16 h-16 rounded-full bg-teal-800 border-4 border-black"></div>
+        <div className="absolute bottom-10 right-10 w-24 h-24 bg-orange-600 border-4 border-black transform rotate-12"></div>
+        <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-teal-800 border-4 border-black"></div>
       </section>
 
       {/* About Section */}
       <section className="py-24 bg-green-400 relative">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-5xl font-black mb-8 text-black uppercase" style={{ textShadow: '4px 4px 0 white' }}>
+            <div>
+              <h2 className="text-5xl md:text-6xl mb-8 text-black uppercase pirata-font" style={{ textShadow: '4px 4px 0 white' }}>
                 Our Approach
               </h2>
-              <p className="text-xl mb-4 font-bold text-black">
+              <p className="text-xl mb-4 font-medium text-black ">
                 TARAJUVVA creates functional clothing with a bold upcycle to upgrade ideology.
               </p>
-              <p className="text-xl mb-8 font-bold text-black">
+              <p className="text-xl mb-8 font-medium text-black ">
                 Each piece is designed to stand out while providing maximum utility for everyday life.
               </p>
               <NeoButton bgColor="bg-black" textColor="text-white">
                 LEARN MORE
               </NeoButton>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              <div className="border-4 border-black shadow-neo bg-purple-600 transform rotate-6 aspect-square flex items-center justify-center p-10">
-                <GatsbyImage
-                  image={ourstoryImage}
-                  alt="Tarrajuwa Logo"
-                  className="w-dull"
-                />
+            <div className="relative">
+              <div className="border-4 border-black bg-purple-600 transform rotate-6 aspect-square flex items-center justify-center p-10" style={{ boxShadow: '8px 8px 0 #000' }}>
+                {ourstoryImage && (
+                  <GatsbyImage
+                    image={ourstoryImage}
+                    alt="Tarrajuwa Story"
+                    className="w-full"
+                  />
+                )}
               </div>
               <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-pink-300 border-4 border-black transform -rotate-12"></div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -335,38 +305,20 @@ const IndexPage = () => {
       {/* Newsletter Section */}
       <section className="py-24 bg-pink-300 relative">
         <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl font-black mb-6 text-black uppercase"
-            style={{ textShadow: '4px 4px 0 white' }}
-          >
+          <h2 className="text-5xl md:text-6xl mb-6 text-black uppercase pirata-font" style={{ textShadow: '4px 4px 0 white' }}>
             Join Our Community
-          </motion.h2>
-          <motion.p
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl mb-10 max-w-2xl mx-auto font-bold text-black"
-          >
+          </h2>
+          <p className="text-xl mb-10 max-w-2xl mx-auto font-medium text-black ibm-plex-font">
             Subscribe to get exclusive access to new drops, discounts, and events.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-lg mx-auto relative"
-          >
+          <div className="max-w-lg mx-auto relative">
             <form className="flex flex-col sm:flex-row gap-4">
               <input
                 type="email"
                 placeholder="YOUR EMAIL"
-                className="flex-1 px-4 py-4 text-lg font-bold border-4 border-black shadow-neo focus:outline-none focus:-translate-x-1 focus:-translate-y-1 transition-transform"
+                className="flex-1 px-4 py-4 text-lg font-medium border-4 border-black focus:outline-none ibm-plex-font"
+                style={{ boxShadow: '8px 8px 0 #000' }}
               />
               <NeoButton type="submit" bgColor="bg-black" textColor="text-white">
                 SUBSCRIBE
@@ -376,7 +328,7 @@ const IndexPage = () => {
             {/* Decorative Elements */}
             <div className="absolute -top-5 -right-5 w-10 h-10 bg-blue-600 border-3 border-black transform rotate-12"></div>
             <div className="absolute -bottom-4 -left-4 w-8 h-8 rounded-full bg-orange-600 border-3 border-black"></div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -386,12 +338,14 @@ const IndexPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             <div>
               <div className="w-32 mb-6">
-                <GatsbyImage
-                  image={logoImage}
-                  alt="Tarrajuwa Logo"
-                />
+                {logoImage && (
+                  <GatsbyImage
+                    image={logoImage}
+                    alt="Tarrajuwa Logo"
+                  />
+                )}
               </div>
-              <p className="text-gray-400 mb-6">Bold, brutal, functional clothing.</p>
+              <p className="text-gray-400 mb-6 ibm-plex-font">Bold, brutal, (fun)ctional clothing.</p>
               <div className="flex space-x-4">
                 {["facebook", "instagram", "twitter"].map((platform, index) => (
                   <a
@@ -416,8 +370,8 @@ const IndexPage = () => {
             </div>
 
             <div>
-              <h4 className="text-xl font-bold mb-6 uppercase">Shop</h4>
-              <ul className="space-y-3">
+              <h4 className="text-xl mb-6 uppercase pirata-font">Shop</h4>
+              <ul className="space-y-3 ibm-plex-font">
                 {["New Arrivals", "Tops", "Bottoms", "Outerwear", "Accessories"].map((item, index) => (
                   <li key={index} className="transform transition-all duration-300 hover:translate-x-2">
                     <Link to={`/collections/${item.toLowerCase().replace(" ", "-")}`} className="text-gray-400 hover:text-white">
@@ -429,8 +383,8 @@ const IndexPage = () => {
             </div>
 
             <div>
-              <h4 className="text-xl font-bold mb-6 uppercase">Info</h4>
-              <ul className="space-y-3">
+              <h4 className="text-xl mb-6 uppercase pirata-font">Info</h4>
+              <ul className="space-y-3 ibm-plex-font">
                 {["About Us", "Sustainability", "Sizing Guide", "Shipping & Returns", "Contact Us"].map((item, index) => (
                   <li key={index} className="transform transition-all duration-300 hover:translate-x-2">
                     <Link to={`/${item.toLowerCase().replace(/\s+&\s+|\s+/g, "-")}`} className="text-gray-400 hover:text-white">
@@ -442,17 +396,17 @@ const IndexPage = () => {
             </div>
 
             <div>
-              <h4 className="text-xl font-bold mb-6 uppercase">Newsletter</h4>
+              <h4 className="text-xl mb-6 uppercase pirata-font">Newsletter</h4>
               <p className="text-gray-400 mb-4">Stay updated with our latest drops</p>
               <form className="flex">
                 <input
                   type="email"
                   placeholder="Email"
-                  className="py-2 px-3 flex-1 border-2 border-white bg-transparent text-white focus:outline-none font-mono"
+                  className="py-2 px-3 flex-1 border-2 border-white bg-transparent text-white focus:outline-none "
                 />
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white px-4 border-2 border-white border-l-0 font-bold hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white px-4 border-2 border-white border-l-0 font-bold hover:bg-blue-700 transition-colors pirata-font"
                 >
                   GO
                 </button>
@@ -461,7 +415,7 @@ const IndexPage = () => {
           </div>
 
           <div className="mt-16 pt-6 border-t border-gray-800 text-center text-gray-600">
-            <p>&copy; {new Date().getFullYear()} TARAJUVVA. Powered by siteitup.com. All rights reserved.</p>
+            <p className="">&copy; {new Date().getFullYear()} TARAJUVVA. Powered by siteitup.com. All rights reserved.</p>
           </div>
         </div>
       </footer>
