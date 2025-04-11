@@ -1,8 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import { motion } from "framer-motion"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { graphql, useStaticQuery } from "gatsby"
 import { Helmet } from "react-helmet"
 import Header from "../components/header"
 
@@ -19,7 +17,6 @@ const colors = {
 }
 
 // Custom CSS with neo-brutalist styling that can't be done with Tailwind alone
-
 const customStyles = `
   @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
@@ -46,7 +43,6 @@ const customStyles = `
   }
 `
 
-
 // Neo-brutalist Button component
 const NeoButton = ({ children, bgColor = "bg-black", textColor = "text-white", className = "", ...props }) => {
   return (
@@ -60,7 +56,7 @@ const NeoButton = ({ children, bgColor = "bg-black", textColor = "text-white", c
 };
 
 // Product Card component
-const ProductCard = ({ image, title, price, tag = "NEW", bgColor = "bg-pink-300" }) => {
+const ProductCard = ({ title, price, tag = "NEW", bgColor = "bg-pink-300" }) => {
   return (
     <div className="border-4 border-black shadow-neo bg-white transform -rotate-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-neo-lg">
       <div className="relative border-b-4 border-black overflow-hidden">
@@ -85,89 +81,6 @@ const ProductCard = ({ image, title, price, tag = "NEW", bgColor = "bg-pink-300"
 };
 
 const IndexPage = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      logoImage: file(relativePath: { eq: "logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 200
-            placeholder: BLURRED
-            formats: [AUTO, WEBP, AVIF]
-            quality: 100
-          )
-        }
-      }
-      patternImage: file(relativePath: { eq: "pattern.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 600
-            placeholder: BLURRED
-            aspectRatio: 0.8
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-      patternbigImage: file(relativePath: { eq: "patternbig.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 600
-            placeholder: BLURRED
-            aspectRatio: 0.8
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-      pattern1: file(relativePath: { eq: "pattern1.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 600
-            placeholder: BLURRED
-            aspectRatio: 0.8
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-      pattern2: file(relativePath: { eq: "pattern2.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 600
-            placeholder: BLURRED
-            aspectRatio: 0.8
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-      pattern3: file(relativePath: { eq: "pattern3.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 600
-            placeholder: BLURRED
-            aspectRatio: 0.8
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-      ourstory: file(relativePath: { eq: "ourstory.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 600
-            placeholder: BLURRED
-            aspectRatio: 0.8
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-    }
-  `)
-
-  const logoImage = getImage(data.logoImage) || null
-  const patternImage = getImage(data.patternImage) || null
-  const patternbigImage = getImage(data.patternbigImage) || null
-  const ourstoryImage = getImage(data.ourstory) || null
-  const pattern1 = getImage(data.pattern1) || null
-  const pattern2 = getImage(data.pattern2) || null
-  const pattern3 = getImage(data.pattern3) || null
-
   return (
     <main className="overflow-x-hidden">
       <Helmet>
@@ -193,7 +106,7 @@ const IndexPage = () => {
       </Helmet>
 
       {/* Navigation */}
-      <Header logoImage={logoImage} />
+      <Header />
 
       {/* Hero Section with Pirata One Font */}
       <section className="pt-20 min-h-screen flex items-center justify-center bg-pink-600">
@@ -288,13 +201,7 @@ const IndexPage = () => {
 
             <div className="relative">
               <div className="border-4 border-black bg-purple-600 transform rotate-6 aspect-square flex items-center justify-center p-10" style={{ boxShadow: '8px 8px 0 #000' }}>
-                {ourstoryImage && (
-                  <GatsbyImage
-                    image={ourstoryImage}
-                    alt="Tarrajuwa Story"
-                    className="w-full"
-                  />
-                )}
+                {/* Image removed */}
               </div>
               <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-pink-300 border-4 border-black transform -rotate-12"></div>
             </div>
@@ -338,12 +245,7 @@ const IndexPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             <div>
               <div className="w-32 mb-6">
-                {logoImage && (
-                  <GatsbyImage
-                    image={logoImage}
-                    alt="Tarrajuwa Logo"
-                  />
-                )}
+                {/* Image removed */}
               </div>
               <p className="text-gray-400 mb-6 ibm-plex-font">Bold, brutal, (fun)ctional clothing.</p>
               <div className="flex space-x-4">
