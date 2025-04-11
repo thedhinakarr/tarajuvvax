@@ -81,7 +81,7 @@ const ProductCard = ({ image, title, price, tag = "NEW", bgColor = "bg-pink-300"
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      logoImage: file(relativePath: { eq: "logo.jpg" }) {
+      logoImage: file(relativePath: { eq: "logo.png" }) {
         childImageSharp {
           gatsbyImageData(
             width: 200
