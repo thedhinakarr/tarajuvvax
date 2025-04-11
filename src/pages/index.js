@@ -69,20 +69,49 @@ const ProductCard = ({ title, price, tag = "NEW", bgColor = "bg-pink-300" }) => 
 };
 
 const IndexPage = () => {
-  // Query for the logo image and background pattern
   const data = useStaticQuery(graphql`
      query {
-       logoImage: file(relativePath: { eq: "logo.png" }) {
+       backgroundImage: file(relativePath: { eq: "background.png" }) {
          childImageSharp {
            gatsbyImageData(
-             width: 800
+             width: 1920
              placeholder: BLURRED
              formats: [AUTO, WEBP]
-             quality: 100
+             quality: 90
            )
          }
        }
-       backgroundImage: file(relativePath: { eq: "background.png" }) {
+       background2Image: file(relativePath: { eq: "background2.png" }) {
+         childImageSharp {
+           gatsbyImageData(
+             width: 1920
+             placeholder: BLURRED
+             formats: [AUTO, WEBP]
+             quality: 90
+           )
+         }
+       }
+       background3Image: file(relativePath: { eq: "background3.png" }) {
+         childImageSharp {
+           gatsbyImageData(
+             width: 1920
+             placeholder: BLURRED
+             formats: [AUTO, WEBP]
+             quality: 90
+           )
+         }
+       }
+       background4Image: file(relativePath: { eq: "background4.png" }) {
+         childImageSharp {
+           gatsbyImageData(
+             width: 1920
+             placeholder: BLURRED
+             formats: [AUTO, WEBP]
+             quality: 90
+           )
+         }
+       }
+       ourApproachImage: file(relativePath: { eq: "our-approach.png" }) {
          childImageSharp {
            gatsbyImageData(
              width: 1920
@@ -95,9 +124,14 @@ const IndexPage = () => {
      }
    `)
 
+
+
   // Get the image data
-  const logoImage = getImage(data.logoImage)
   const backgroundImage = getImage(data.backgroundImage)
+  const background2Image = getImage(data.background2Image)
+  const background3Image = getImage(data.background3Image)
+  const background4Image = getImage(data.background4Image)
+  const ourApproachImage = getImage(data.ourApproachImage)
 
   return (
     <main className="overflow-x-hidden">
@@ -125,17 +159,16 @@ const IndexPage = () => {
               .hero-content {
                 position: relative;
                 z-index: 10;
-              }
-              .logo-container {
-                max-width: 100%;
-                margin: 0 auto;
-                margin-bottom: 2rem;
-                z-index: 10;
-                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 100%;
+                padding-top: 0;
               }
               .text-white-with-shadow {
                 color: white;
-                text-shadow: 3px 3px 0 #000, 6px 6px 0 #32CD32;
+                text-shadow: 4px 4px 0 #000, 8px 8px 0 #32CD32;
+                letter-spacing: 1px;
               }
               .background-wrapper {
                 position: absolute;
@@ -151,7 +184,7 @@ const IndexPage = () => {
       {/* Navigation */}
       <Header />
 
-      {/* Updated Hero Section with Pattern Background */}
+      {/* Updated Hero Section with Pattern Background Only and Text */}
       <section className="pt-20 min-h-screen flex flex-col items-center justify-center relative">
         {/* Pattern Background */}
         <div className="background-wrapper">
@@ -165,31 +198,22 @@ const IndexPage = () => {
           />
         </div>
 
-        {/* Logo at the Top of the Hero Section */}
-        <div className="logo-container w-full max-w-4xl px-4 mt-8 mb-8">
-          <GatsbyImage
-            image={logoImage}
-            alt="TARRAJUWA Logo"
-            className="w-full h-full"
-          />
-        </div>
-
-        {/* Text Directly on Background - No Box */}
-        <div className="text-center px-4 mx-auto max-w-4xl hero-content my-8">
+        {/* Text Directly on Background - With Corrected Line Breaks */}
+        <div className="text-center px-4 mx-auto max-w-5xl hero-content -mt-20">
           <h1
-            className="text-6xl md:text-7xl text-white-with-shadow uppercase mb-12"
+            className="text-6xl md:text-8xl lg:text-9xl text-white-with-shadow uppercase mb-16 "
             style={{
               fontFamily: "'Special Gothic Expanded One', cursive",
-              lineHeight: "1.2"
+              lineHeight: "1.1",
             }}
           >
-            Bold. Brutal. (Fun)ctional.
+            Bold.<br />Brutal.<br />(Fun)ctional.
           </h1>
 
           {/* Shop Now Button */}
           <div className="inline-block transform -rotate-2">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-10 border-4 border-black uppercase tracking-wider pirata-font shadow-neo"
+              className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-12 border-4 border-black uppercase tracking-wider pirata-font shadow-neo"
               style={{
                 fontFamily: "'Special Gothic Expanded One', cursive",
                 textShadow: "2px 2px 0px #000",
@@ -200,16 +224,26 @@ const IndexPage = () => {
             </button>
           </div>
         </div>
-
-
       </section>
 
-      {/* Featured Products Section */}
-      <section className="py-24 bg-blue-600 relative">
-        <div className="zigzag absolute top-0 left-0 right-0"></div>
+      {/* Pattern Collection Section with background2.png instead of solid blue */}
+      <section className="py-24 relative">
+        {/* Background Image */}
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <GatsbyImage
+            image={background2Image}
+            alt="Pattern Background"
+            className="w-full h-full"
+            style={{ position: "absolute" }}
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </div>
 
-        <div className="container mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl mb-16 text-center text-orange-500 uppercase pirata-font" style={{
+        <div className="zigzag absolute top-0 left-0 right-0 z-10"></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <h2 className="text-5xl md:text-6xl mb-16 text-center text-white uppercase pirata-font" style={{
             fontFamily: "'Special Gothic Expanded One', cursive",
             textShadow: "4px 4px 0px #91DF5D",
             lineHeight: "1.2"
@@ -217,7 +251,9 @@ const IndexPage = () => {
             Pattern Collection
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" style={{
+            fontFamily: "'Special Gothic Expanded One', cursive",
+          }}>
             {[
               { title: "UTILITY CARGO PANTS", price: "$129", color: "bg-pink-600" },
               { title: "OVERSIZED JACKET", price: "$189", color: "bg-purple-600" },
@@ -236,9 +272,9 @@ const IndexPage = () => {
 
           <div className="mt-16 text-center">
             <div className="inline-block">
-              <NeoButton className="text-xl text-orange-500" style={{
+              <NeoButton className="text-xl text-white" style={{
                 fontFamily: "'Special Gothic Expanded One', cursive",
-                textShadow: "4px 4px 0px #FFFFFF",
+                textShadow: "4px 4px 0px #000000",
                 lineHeight: "1.2"
               }}>
                 VIEW ALL PRODUCTS
@@ -246,38 +282,56 @@ const IndexPage = () => {
             </div>
           </div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute bottom-10 right-10 w-24 h-24 bg-orange-600 border-4 border-black transform rotate-12"></div>
-        <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-teal-800 border-4 border-black"></div>
       </section>
 
+
       {/* About Section */}
-      <section className="py-24 bg-green-400 relative">
-        <div className="container mx-auto px-6">
+      <section className="py-24 relative">
+        {/* Background Image */}
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <GatsbyImage
+            image={background3Image}
+            alt="Approach Background"
+            className="w-full h-full"
+            style={{ position: "absolute" }}
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-5xl md:text-6xl mb-8 text-black uppercase pirata-font" style={{
+              <h2 className="text-5xl md:text-6xl mb-8 text-white uppercase pirata-font" style={{
                 fontFamily: "'Special Gothic Expanded One', cursive",
                 textShadow: "4px 4px 0px #91DF5D",
                 lineHeight: "1.2"
               }}>
                 Our Approach
               </h2>
-              <p className="text-xl mb-4 font-medium text-black ">
+              <p className="text-3xl mb-4 font-bold text-white">
                 TARAJUVVA creates functional clothing with a bold upcycle to upgrade ideology.
               </p>
-              <p className="text-xl mb-8 font-medium text-black ">
+              <p className="text-xl mb-8 font-bold text-white">
                 Each piece is designed to stand out while providing maximum utility for everyday life.
               </p>
-              <NeoButton bgColor="bg-black" textColor="text-white">
-                LEARN MORE
-              </NeoButton>
+              <div className="transform -rotate-2">
+                <NeoButton bgColor="bg-black" textColor="text-white">
+                  LEARN MORE
+                </NeoButton>
+              </div>
             </div>
 
             <div className="relative">
               <div className="border-4 border-black bg-purple-600 transform rotate-6 aspect-square flex items-center justify-center p-10" style={{ boxShadow: '8px 8px 0 #000' }}>
-                {/* Image removed */}
+                <GatsbyImage
+                  image={ourApproachImage}
+                  alt="Image 1"
+                  className="w-full h-full"
+                  style={{ position: "absolute" }}
+                  objectFit="cover"
+                  objectPosition="center"
+                />
               </div>
               <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-pink-300 border-4 border-black transform -rotate-12"></div>
             </div>
@@ -286,16 +340,28 @@ const IndexPage = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 bg-pink-300 relative">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-5xl md:text-6xl mb-6 text-black uppercase pirata-font" style={{
+      <section className="py-24 relative">
+        {/* Background Image */}
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <GatsbyImage
+            image={background4Image}
+            alt="Newsletter Background"
+            className="w-full h-full"
+            style={{ position: "absolute" }}
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </div>
+
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <h2 className="text-5xl md:text-6xl mb-6 text-white uppercase pirata-font" style={{
             fontFamily: "'Special Gothic Expanded One', cursive",
             textShadow: "4px 4px 0px #91DF5D",
             lineHeight: "1.2"
           }}>
             Join Our Community
           </h2>
-          <p className="text-xl mb-10 max-w-2xl mx-auto font-medium text-black ibm-plex-font">
+          <p className="text-3xl mb-10 max-w-2xl mx-auto font-bold text-white ibm-plex-font">
             Subscribe to get exclusive access to new drops, discounts, and events.
           </p>
 
