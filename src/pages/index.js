@@ -1,6 +1,7 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, graphql, useStaticQuery } from "gatsby"
 import { Helmet } from "react-helmet"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Header from "../components/header"
 
 // Custom CSS with neo-brutalist styling that can't be done with Tailwind alone
@@ -68,63 +69,130 @@ const ProductCard = ({ title, price, tag = "NEW", bgColor = "bg-pink-300" }) => 
 };
 
 const IndexPage = () => {
+  // Query for the logo image and background pattern
+  const data = useStaticQuery(graphql`
+     query {
+       logoImage: file(relativePath: { eq: "logo.png" }) {
+         childImageSharp {
+           gatsbyImageData(
+             width: 800
+             placeholder: BLURRED
+             formats: [AUTO, WEBP]
+             quality: 100
+           )
+         }
+       }
+       backgroundImage: file(relativePath: { eq: "background.png" }) {
+         childImageSharp {
+           gatsbyImageData(
+             width: 1920
+             placeholder: BLURRED
+             formats: [AUTO, WEBP]
+             quality: 90
+           )
+         }
+       }
+     }
+   `)
+
+  // Get the image data
+  const logoImage = getImage(data.logoImage)
+  const backgroundImage = getImage(data.backgroundImage)
+
   return (
     <main className="overflow-x-hidden">
+
       <Helmet>
         <title>TARRAJUWA | Neo-Brutalist Clothing</title>
         <meta name="description" content="TARRAJUWA - Bold, functional neo-brutalist clothing designs" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Added Special Gothic Expanded One for hero content */}
         <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet" />
         <style>{customStyles}</style>
         <style>{`
-          .shadow-neo {
-            box-shadow: 8px 8px 0 #191919;
-          }
-          .shadow-neo-lg {
-            box-shadow: 12px 12px 0 #191919;
-          }
-          .text-shadow {
-            text-shadow: 4px 4px 0 #191919;
-          }
-          .text-shadow-sm {
-            text-shadow: 2px 2px 0 #191919;
-          }
-        `}</style>
+              .shadow-neo {
+                box-shadow: 8px 8px 0 #191919;
+              }
+              .shadow-neo-lg {
+                box-shadow: 12px 12px 0 #191919;
+              }
+              .text-shadow {
+                text-shadow: 4px 4px 0 #191919;
+              }
+              .text-shadow-sm {
+                text-shadow: 2px 2px 0 #191919;
+              }
+              .hero-content {
+                position: relative;
+                z-index: 10;
+              }
+              .logo-container {
+                max-width: 100%;
+                margin: 0 auto;
+                margin-bottom: 2rem;
+                z-index: 10;
+                position: relative;
+              }
+              .text-white-with-shadow {
+                color: white;
+                text-shadow: 3px 3px 0 #000, 6px 6px 0 #32CD32;
+              }
+              .background-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+              }
+            `}</style>
       </Helmet>
 
       {/* Navigation */}
       <Header />
 
-      {/* Hero Section with Special Gothic Expanded One Font */}
-      <section className="pt-20 min-h-screen flex items-center justify-center bg-pink-600">
-        <div className="text-center px-4 mx-auto max-w-4xl z-10 relative py-16">
-          {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-blue-600 border-4 border-black -z-10"></div>
-          <div className="absolute bottom-0 left-0 w-20 h-20 bg-green-400 border-4 border-black transform rotate-12 -z-10"></div>
+      {/* Updated Hero Section with Pattern Background */}
+      <section className="pt-20 min-h-screen flex flex-col items-center justify-center relative">
+        {/* Pattern Background */}
+        <div className="background-wrapper">
+          <GatsbyImage
+            image={backgroundImage}
+            alt="Pattern Background"
+            className="w-full h-full"
+            style={{ position: "absolute" }}
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </div>
 
-          {/* Neo-brutalist Text Box */}
-          <div className="bg-white border-4 border-black transform rotate-1 p-8 mb-10 mx-auto" style={{ boxShadow: '8px 8px 0 #000' }}>
-            <h1
-              className="text-6xl md:text-7xl text-black uppercase"
-              style={{
-                fontFamily: "'Special Gothic Expanded One', cursive",
-                textShadow: "4px 4px 0px #91DF5D",
-                lineHeight: "1.2"
-              }}
-            >
-              Bold. Brutal. (Fun)ctional.
-            </h1>
-          </div>
+        {/* Logo at the Top of the Hero Section */}
+        <div className="logo-container w-full max-w-4xl px-4 mt-8 mb-8">
+          <GatsbyImage
+            image={logoImage}
+            alt="TARRAJUWA Logo"
+            className="w-full h-full"
+          />
+        </div>
+
+        {/* Text Directly on Background - No Box */}
+        <div className="text-center px-4 mx-auto max-w-4xl hero-content my-8">
+          <h1
+            className="text-6xl md:text-7xl text-white-with-shadow uppercase mb-12"
+            style={{
+              fontFamily: "'Special Gothic Expanded One', cursive",
+              lineHeight: "1.2"
+            }}
+          >
+            Bold. Brutal. (Fun)ctional.
+          </h1>
 
           {/* Shop Now Button */}
           <div className="inline-block transform -rotate-2">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-10 border-4 border-black uppercase tracking-wider pirata-font"
+              className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-10 border-4 border-black uppercase tracking-wider pirata-font shadow-neo"
               style={{
                 fontFamily: "'Special Gothic Expanded One', cursive",
-                textShadow: "4px 4px 0px #91DF5D",
+                textShadow: "2px 2px 0px #000",
                 lineHeight: "1.2"
               }}
             >
@@ -132,6 +200,8 @@ const IndexPage = () => {
             </button>
           </div>
         </div>
+
+
       </section>
 
       {/* Featured Products Section */}
