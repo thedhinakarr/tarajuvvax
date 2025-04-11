@@ -1,20 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { motion } from "framer-motion"
 import { Helmet } from "react-helmet"
 import Header from "../components/header"
-
-// Color palette based on provided colors (for reference)
-const colors = {
-  blue: "#296FC7",     // Blue
-  purple: "#A04187",   // Purple
-  orange: "#EE4C01",   // Orange
-  brown: "#723C0C",    // Brown
-  green: "#91DF5D",    // Green
-  black: "#191919",    // Black
-  pink: "#FFB7B9",     // Pink
-  teal: "#08444F"      // Teal
-}
 
 // Custom CSS with neo-brutalist styling that can't be done with Tailwind alone
 const customStyles = `
@@ -88,6 +75,8 @@ const IndexPage = () => {
         <meta name="description" content="TARRAJUWA - Bold, functional neo-brutalist clothing designs" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Added Special Gothic Expanded One for hero content */}
+        <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet" />
         <style>{customStyles}</style>
         <style>{`
           .shadow-neo {
@@ -108,7 +97,7 @@ const IndexPage = () => {
       {/* Navigation */}
       <Header />
 
-      {/* Hero Section with Pirata One Font */}
+      {/* Hero Section with Special Gothic Expanded One Font */}
       <section className="pt-20 min-h-screen flex items-center justify-center bg-pink-600">
         <div className="text-center px-4 mx-auto max-w-4xl z-10 relative py-16">
           {/* Decorative Elements */}
@@ -118,8 +107,9 @@ const IndexPage = () => {
           {/* Neo-brutalist Text Box */}
           <div className="bg-white border-4 border-black transform rotate-1 p-8 mb-10 mx-auto" style={{ boxShadow: '8px 8px 0 #000' }}>
             <h1
-              className="text-6xl md:text-7xl pirata-font text-black uppercase"
+              className="text-6xl md:text-7xl text-black uppercase"
               style={{
+                fontFamily: "'Special Gothic Expanded One', cursive",
                 textShadow: "4px 4px 0px #91DF5D",
                 lineHeight: "1.2"
               }}
@@ -132,7 +122,11 @@ const IndexPage = () => {
           <div className="inline-block transform -rotate-2">
             <button
               className="bg-green-500 hover:bg-green-600 text-white text-2xl py-4 px-10 border-4 border-black uppercase tracking-wider pirata-font"
-              style={{ boxShadow: "6px 6px 0 #000" }}
+              style={{
+                fontFamily: "'Special Gothic Expanded One', cursive",
+                textShadow: "4px 4px 0px #91DF5D",
+                lineHeight: "1.2"
+              }}
             >
               Shop Now
             </button>
@@ -145,7 +139,11 @@ const IndexPage = () => {
         <div className="zigzag absolute top-0 left-0 right-0"></div>
 
         <div className="container mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl mb-16 text-center text-white uppercase pirata-font" style={{ textShadow: "4px 4px 0 #191919" }}>
+          <h2 className="text-5xl md:text-6xl mb-16 text-center text-orange-500 uppercase pirata-font" style={{
+            fontFamily: "'Special Gothic Expanded One', cursive",
+            textShadow: "4px 4px 0px #91DF5D",
+            lineHeight: "1.2"
+          }}>
             Pattern Collection
           </h2>
 
@@ -168,7 +166,11 @@ const IndexPage = () => {
 
           <div className="mt-16 text-center">
             <div className="inline-block">
-              <NeoButton className="text-xl">
+              <NeoButton className="text-xl text-orange-500" style={{
+                fontFamily: "'Special Gothic Expanded One', cursive",
+                textShadow: "4px 4px 0px #FFFFFF",
+                lineHeight: "1.2"
+              }}>
                 VIEW ALL PRODUCTS
               </NeoButton>
             </div>
@@ -185,7 +187,11 @@ const IndexPage = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-5xl md:text-6xl mb-8 text-black uppercase pirata-font" style={{ textShadow: '4px 4px 0 white' }}>
+              <h2 className="text-5xl md:text-6xl mb-8 text-black uppercase pirata-font" style={{
+                fontFamily: "'Special Gothic Expanded One', cursive",
+                textShadow: "4px 4px 0px #91DF5D",
+                lineHeight: "1.2"
+              }}>
                 Our Approach
               </h2>
               <p className="text-xl mb-4 font-medium text-black ">
@@ -212,7 +218,11 @@ const IndexPage = () => {
       {/* Newsletter Section */}
       <section className="py-24 bg-pink-300 relative">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-5xl md:text-6xl mb-6 text-black uppercase pirata-font" style={{ textShadow: '4px 4px 0 white' }}>
+          <h2 className="text-5xl md:text-6xl mb-6 text-black uppercase pirata-font" style={{
+            fontFamily: "'Special Gothic Expanded One', cursive",
+            textShadow: "4px 4px 0px #91DF5D",
+            lineHeight: "1.2"
+          }}>
             Join Our Community
           </h2>
           <p className="text-xl mb-10 max-w-2xl mx-auto font-medium text-black ibm-plex-font">
@@ -239,7 +249,6 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-16 bg-black text-white border-t-4 border-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -321,7 +330,7 @@ const IndexPage = () => {
           </div>
         </div>
       </footer>
-    </main>
+    </main >
   )
 }
 
